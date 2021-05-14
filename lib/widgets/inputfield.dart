@@ -3,15 +3,20 @@ import 'package:hack_project/constants/colors.dart';
 
 class CustomInput extends StatelessWidget {
   final String hintText;
-  CustomInput({@required this.hintText});
+  final bool obscureText;
+  CustomInput({
+    @required this.hintText,
+    this.obscureText = false,
+  });
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: Color(0xffA3A0A0),
+      cursorColor: lightgreen,
       style: TextStyle(
         fontSize: 18,
         color: Colors.black,
       ),
+      obscureText: obscureText,
       decoration: InputDecoration(
         filled: true,
         fillColor: inputbackground,
@@ -22,7 +27,7 @@ class CustomInput extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(
           fontSize: 18,
-          color: Color(0xffA3A0A0).withOpacity(0.5),
+          color: lightTextcolor.withOpacity(0.5),
         ),
         errorStyle: TextStyle(
           color: Colors.red.shade700,
