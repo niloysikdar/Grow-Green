@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/widgets/inputfield.dart';
+import 'package:hack_project/widgets/large_green_button.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -27,6 +29,18 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             CustomInput(
               hintText: "Password",
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Forgot Password ?",
+              style: TextStyle(
+                color: lightgreen,
+                fontSize: 15,
+              ),
+            ),
+            SizedBox(height: 40),
+            largeGreenButton(
+              text: "LOG IN",
             ),
           ],
         ),
