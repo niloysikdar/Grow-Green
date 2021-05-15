@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/widgets/inputfield.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
+import 'package:hack_project/screens/map.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -42,6 +43,10 @@ class LoginScreen extends StatelessWidget {
             largeGreenButton(
               text: "LOG IN",
             ),
+            SizedBox(height: 40),
+            FloatingActionButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Map()));
+            })
           ],
         ),
       ),
