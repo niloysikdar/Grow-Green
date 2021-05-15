@@ -4,7 +4,14 @@ import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/widgets/shop_dashboard_banner.dart';
 import 'package:hack_project/widgets/star_rating.dart';
 
-class ShopDashboard extends StatelessWidget {
+class ShopDashboard extends StatefulWidget {
+  @override
+  _ShopDashboardState createState() => _ShopDashboardState();
+}
+
+class _ShopDashboardState extends State<ShopDashboard> {
+  bool isFavourite = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -86,7 +93,36 @@ class ShopDashboard extends StatelessWidget {
                 ),
               ),
             ),
+            favouriteButton(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget favouriteButton() {
+    return Positioned(
+      top: 15,
+      right: 15,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            isFavourite = !isFavourite;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.favorite_rounded,
+              size: 30,
+              color: (isFavourite) ? lightgreen : Colors.grey,
+            ),
+          ),
         ),
       ),
     );
