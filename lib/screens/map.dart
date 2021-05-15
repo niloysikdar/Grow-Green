@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hack_project/widgets/star_rating.dart';
 
 class Map extends StatefulWidget {
   const Map({Key key}) : super(key: key);
@@ -35,11 +36,83 @@ class _MapState extends State<Map> {
     showModalBottomSheet(
         context: context,
         builder: (context){
-          return Container (
-            color: Color(0xFFFFFF),
-            height: 480,
-            child: Column(
+          Size size = MediaQuery.of(context).size;
+          return SafeArea(
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: size.height - (size.height * 0.33),
+                      ),
+                      width: size.width,
+                      margin: EdgeInsets.only(
+                        top: size.height * 0.29,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 25,
+                        vertical: 30,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          titlePrice(context: context),
+                          SizedBox(height: 30),
+                          Row(
+                            children: [
+                              customButton(
+                                text: "Address",
+                                iconData: Icons.location_on_rounded,
+                              ),
+                              SizedBox(width: 25),
+                              customButton(
+                                text: "Call",
+                                iconData: Icons.call,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              customButton(
+                                text: "Visit Website",
+                                iconData: Icons.web,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30),
+                          Text(
+                            "Small pottery shop based out of Jaipur\nSpecialities: Printed pots, matkas.",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 17,
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Row(
+                            children: [
+                              customButton(text: "Pottery"),
+                              SizedBox(width: 10),
+                              customButton(text: "Rajasthanisakas"),
+                              SizedBox(width: 10),
+                              customButton(text: "Pottery"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
 
+                ],
+              ),
             ),
           );
         });
@@ -145,4 +218,79 @@ class _MapState extends State<Map> {
   }
 
 }
+
+Widget customButton({
+  @required String text,
+  IconData iconData,
+}) {
+  return Expanded(
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          (iconData != null)
+              ? Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: Icon(
+              iconData,
+              color: Colors.white,
+            ),
+          )
+              : Container(height: 0, width: 0),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget titlePrice({@required BuildContext context}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Local Pottery shop",
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18,
+            ),
+          ),
+          ratingBar(
+            context: context,
+            initialRating: 4,
+          ),
+        ],
+      ),
+      Text(
+        "₹ 40-80",
+        style: GoogleFonts.dmSans(
+          color: Colors.black45,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ],
+  );
+}
+
+
 

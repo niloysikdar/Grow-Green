@@ -44,6 +44,13 @@ class LoginScreen extends StatelessWidget {
               text: "LOG IN",
             ),
             SizedBox(height: 40),
+            FloatingActionButton(
+                onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Map()),
+                );
+            }),
           ],
         ),
       ),
