@@ -48,7 +48,7 @@ class _MapState extends State<Map> {
                       ),
                       width: size.width,
                       margin: EdgeInsets.only(
-                        top: size.height * 0.29,
+                        top: size.height * 0.06,
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: 25,
