@@ -31,6 +31,20 @@ class _MapState extends State<Map> {
     mapController = controller;
   }
 
+  void _showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return Container (
+            color: Color(0xFFFFFF),
+            height: 480,
+            child: Column(
+
+            ),
+          );
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +54,8 @@ class _MapState extends State<Map> {
         Marker(
           markerId: MarkerId("1"),
           position: LatLng(19.2481883, 73.1539467),
+          infoWindow: InfoWindow(title: "hh"),
+          onTap: _showBottomSheet,
         )
     );
   }
@@ -103,6 +119,7 @@ class _MapState extends State<Map> {
           zoom: 11.0,
         ),
         markers: Set.from(myMarker),
+
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -120,6 +137,7 @@ class _MapState extends State<Map> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.green,
         onTap: _onItemTapped,
+
       ),
 
 
