@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hack_project/constants/colors.dart';
+import 'package:hack_project/models/shopmodel.dart';
 import 'package:hack_project/widgets/shop_dashboard_banner.dart';
 import 'package:hack_project/widgets/star_rating.dart';
 
 class ShopDashboard extends StatefulWidget {
+  final String shopId;
+  ShopDashboard({@required this.shopId});
   @override
   _ShopDashboardState createState() => _ShopDashboardState();
 }
@@ -17,86 +21,132 @@ class _ShopDashboardState extends State<ShopDashboard> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            shopDashboardBanner(
-              size: size,
-              imagepath:
-                  "https://lp-cms-production.imgix.net/2020-11/shutterstock_551163163%20A%20rural%20craftswoman%20paints%20on%20colorful%20handicraft%20items.jpg",
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("shops")
+              .doc(widget.shopId)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasData) {
+              final DocumentSnapshot ds = snapshot.data;
+              final Map<String, dynamic> map = ds.data();
+              ShopModel shopModel = ShopModel(
+                shopName: map["shopName"],
+                address: map["address"],
+                phoneNumber: map["phoneNumber"],
+                priceRange: map["priceRange"],
+                shopDescription: map["shopDescription"],
+                shopImageUrls: map["shopImageUrls"],
+                shopStars: map["shopStars"].toDouble(),
+                shopWebsite: map["shopWebsite"],
+                tags: map["tags"],
+              );
+              return bodyWidget(
+                size: size,
+                shopModel: shopModel,
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text("Error"),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget bodyWidget({
+    @required Size size,
+    @required ShopModel shopModel,
+  }) {
+    return Stack(
+      children: [
+        shopDashboardBanner(
+          size: size,
+          imagepath: shopModel.shopImageUrls[0],
+        ),
+        SingleChildScrollView(
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: size.height - (size.height * 0.33),
             ),
-            SingleChildScrollView(
-              child: Container(
-                constraints: BoxConstraints(
-                  minHeight: size.height - (size.height * 0.33),
+            width: size.width,
+            margin: EdgeInsets.only(
+              top: size.height * 0.29,
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 30,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                titlePrice(
+                  context: context,
+                  title: shopModel.shopName,
+                  priceRange: shopModel.priceRange,
+                  initialRating: shopModel.shopStars,
                 ),
-                width: size.width,
-                margin: EdgeInsets.only(
-                  top: size.height * 0.29,
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 25,
-                  vertical: 30,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 30),
+                Row(
                   children: [
-                    titlePrice(context: context),
-                    SizedBox(height: 30),
-                    Row(
-                      children: [
-                        customButton(
-                          text: "Address",
-                          iconData: Icons.location_on_rounded,
-                        ),
-                        SizedBox(width: 25),
-                        customButton(
-                          text: "Call",
-                          iconData: Icons.call,
-                        ),
-                      ],
+                    customButton(
+                      text: "Address",
+                      iconData: Icons.location_on_rounded,
                     ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        customButton(
-                          text: "Visit Website",
-                          iconData: Icons.web,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30),
-                    Text(
-                      "Small pottery shop based out of Jaipur\nSpecialities: Printed pots, matkas.",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 17,
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    Row(
-                      children: [
-                        customButton(text: "Pottery"),
-                        SizedBox(width: 10),
-                        customButton(text: "Rajasthanisakas"),
-                        SizedBox(width: 10),
-                        customButton(text: "Pottery"),
-                      ],
+                    SizedBox(width: 25),
+                    customButton(
+                      text: "Call",
+                      iconData: Icons.call,
                     ),
                   ],
                 ),
-              ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    customButton(
+                      text: "Visit Website",
+                      iconData: Icons.web,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Text(
+                  shopModel.shopDescription,
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 17,
+                  ),
+                ),
+                SizedBox(height: 30),
+                Row(
+                  children: [
+                    customButton(text: shopModel.tags[0]),
+                    SizedBox(width: 10),
+                    customButton(text: shopModel.tags[1]),
+                    SizedBox(width: 10),
+                    customButton(text: shopModel.tags[2]),
+                  ],
+                ),
+              ],
             ),
-            favouriteButton(),
-          ],
+          ),
         ),
-      ),
+        favouriteButton(),
+      ],
     );
   }
 
@@ -169,7 +219,12 @@ class _ShopDashboardState extends State<ShopDashboard> {
     );
   }
 
-  Widget titlePrice({@required BuildContext context}) {
+  Widget titlePrice({
+    @required BuildContext context,
+    @required String title,
+    @required String priceRange,
+    @required double initialRating,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -177,7 +232,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Local Pottery shop",
+              title,
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 18,
@@ -185,12 +240,12 @@ class _ShopDashboardState extends State<ShopDashboard> {
             ),
             ratingBar(
               context: context,
-              initialRating: 4,
+              initialRating: initialRating,
             ),
           ],
         ),
         Text(
-          "₹ 40-80",
+          "₹ $priceRange",
           style: GoogleFonts.dmSans(
             color: Colors.black45,
             fontSize: 20,
