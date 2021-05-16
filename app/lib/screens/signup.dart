@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/screens/login_screen.dart';
-import 'package:hack_project/widgets/inputfield.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
 import 'package:hack_project/widgets/social_login_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hack_project/authentication.dart';
 import 'package:hack_project/screens/map.dart';
 
@@ -136,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   print("Email : $_email and pass $_password");
                   dynamic result = await _auth.signUp(_email, _password);
                   if (result == null) {
-                    Navigator.push(context,
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Map()));
                   } else {
                     final snackBar = SnackBar(
