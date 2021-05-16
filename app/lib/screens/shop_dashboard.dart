@@ -15,7 +15,7 @@ class ShopDashboard extends StatefulWidget {
 }
 
 class _ShopDashboardState extends State<ShopDashboard> {
-  bool isFavourite = false;
+  bool isFavourite = true;
 
   Future<void> launchUrl(String url) async {
     if (await canLaunch(url)) {

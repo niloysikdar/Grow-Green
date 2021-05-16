@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_project/models/shopmodel.dart';
@@ -63,7 +64,7 @@ class FavShops extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ShopDashboard(shopId: "o1x5oLiroLFG88bc66Yg"),
+            builder: (context) => ShopDashboard(shopId: shopModel.shopName),
           ),
         );
       },
@@ -73,16 +74,15 @@ class FavShops extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: size.width,
-              height: size.height * 0.25,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
-                  image: NetworkImage(shopModel.shopImageUrls[0]),
-                  fit: BoxFit.cover,
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CachedNetworkImage(
+                imageUrl: shopModel.shopImageUrls[0],
+                height: size.height * 0.25,
+                width: size.width,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(child: Text("Loading")),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Text(

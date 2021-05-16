@@ -133,8 +133,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   print("Email : $_email and pass $_password");
                   dynamic result = await _auth.signUp(_email, _password);
                   if (result == null) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Map()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Map(),
+                      ),
+                    );
                   } else {
                     final snackBar = SnackBar(
                       content: Text("$result"),

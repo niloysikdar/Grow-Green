@@ -2,8 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hack_project/screens/favpage.dart';
-import 'screens/login_screen.dart';
+import 'package:hack_project/screens/map.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.green,
       ),
-      home: FavShops(),
+      home: Map(),
     );
   }
 }
