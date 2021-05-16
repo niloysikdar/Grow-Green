@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 30),
               TextButton(
-                
+
                   onPressed: () async {
                     print("$_email, $_password");
                     dynamic result = await _auth.signIn(_email, _password);
