@@ -5,6 +5,7 @@ import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/models/shopmodel.dart';
 import 'package:hack_project/widgets/shop_dashboard_banner.dart';
 import 'package:hack_project/widgets/star_rating.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ShopDashboard extends StatefulWidget {
   final String shopId;
@@ -15,6 +16,19 @@ class ShopDashboard extends StatefulWidget {
 
 class _ShopDashboardState extends State<ShopDashboard> {
   bool isFavourite = false;
+
+  Future<void> launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        enableJavaScript: true,
+      );
+    } else {
+      print("Can't launch $url");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,13 +129,19 @@ class _ShopDashboardState extends State<ShopDashboard> {
                   ],
                 ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    customButton(
-                      text: "Visit Website",
-                      iconData: Icons.web,
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    launchUrl(
+                        "https://unsplash.com/s/photos/indian-handicrafts");
+                  },
+                  child: Row(
+                    children: [
+                      customButton(
+                        text: "Visit Website",
+                        iconData: Icons.web,
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 30),
                 Text(
