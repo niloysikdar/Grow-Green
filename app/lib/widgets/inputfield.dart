@@ -4,9 +4,11 @@ import 'package:hack_project/constants/colors.dart';
 class CustomInput extends StatelessWidget {
   final String hintText;
   final bool obscureText;
+
   CustomInput({
     @required this.hintText,
     this.obscureText = false,
+
   });
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class CustomInput extends StatelessWidget {
         color: Colors.black,
       ),
       obscureText: obscureText,
+
       decoration: InputDecoration(
         filled: true,
         fillColor: inputbackground,
