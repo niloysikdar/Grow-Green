@@ -117,13 +117,31 @@ class _MapState extends State<Map> {
     super.initState();
     _getCurrentLocation();
 
+
+
     myMarker.add(Marker(
       markerId: MarkerId("1"),
-      position: LatLng(19.2481883, 73.1539467),
-      infoWindow: InfoWindow(title: "hh"),
+      position: LatLng(27.391277, 74.232617),
+
       onTap: _showBottomSheet,
     ));
+
+    myMarker.add(Marker(
+      markerId: MarkerId("2"),
+      position: LatLng(27.091277, 74.222617),
+
+      onTap: _showBottomSheet,
+    ));
+
+    myMarker.add(Marker(
+      markerId: MarkerId("2"),
+      position: LatLng(27.091277, 73.292617),
+
+      onTap: _showBottomSheet,
+    ));
+
   }
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -171,7 +189,7 @@ class _MapState extends State<Map> {
     print(_position);
     if (_position != null) {
       CameraUpdate cameraUpdate = CameraUpdate.newLatLngZoom(
-          LatLng(_position.latitude, _position.longitude), 15);
+          LatLng(_position.latitude, _position.longitude), 10);
       mapController.animateCamera(cameraUpdate);
     }
   }
