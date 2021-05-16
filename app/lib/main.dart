@@ -1,15 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'screens/login_screen.dart';
 import 'screens/map.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hack_project/screens/shop_dashboard.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((val) {
+    runApp(MyApp());
+  });
+
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +36,9 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.green,
       ),
+
       home: LoginScreen(),
+
     );
   }
 }
