@@ -17,7 +17,7 @@ class AuthenticationHelper {
   }
 
   //sign in method
-  Future signIn({String email, String password}) async {
+  Future signIn(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
           email: email,

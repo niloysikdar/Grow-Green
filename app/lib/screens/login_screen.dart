@@ -4,8 +4,21 @@ import 'package:hack_project/screens/signup.dart';
 import 'package:hack_project/widgets/inputfield.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
 import 'package:hack_project/widgets/social_login_button.dart';
+import 'package:hack_project/authentication.dart';
+import 'package:hack_project/screens/map.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String _email="";
+
+  String _password="";
+
+  final AuthenticationHelper  _auth = AuthenticationHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +39,53 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 50),
-              CustomInput(
-                hintText: "Email",
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                onChanged: (value){
+                  setState(() {
+                    _email = value;
+                  });
+
+                },
+
               ),
               SizedBox(height: 20),
-              CustomInput(
-                hintText: "Password",
-                obscureText: true,
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                onChanged: (value){
+                  setState(() {
+                    _password = value;
+
+                  });
+
+                },
+
               ),
               SizedBox(height: 10),
               InkWell(
@@ -51,8 +104,32 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              largeGreenButton(
-                text: "LOG IN",
+              TextButton(
+                
+                  onPressed: () async {
+                    print("$_email, $_password");
+                    dynamic result = await _auth.signIn(_email, _password);
+                    if(result == null) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Map()));
+                    }else {
+                      final snackBar = SnackBar(
+                        content: Text("$result"),
+                        action: SnackBarAction(
+                          label: 'Ok',
+
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                      "Log In",
+                  style: TextStyle(
+                    color: Colors.white,
+
+                  )),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(lightgreen),
+                  ),
               ),
               SizedBox(height: 50),
               socialLoginButton(
