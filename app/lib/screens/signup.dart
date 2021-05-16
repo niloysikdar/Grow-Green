@@ -151,7 +151,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
               ),
               SizedBox(height: 30),
-              FloatingActionButton(
+              TextButton(
 
                 onPressed: () async {
                   print("Email : $_email and pass $_password");
@@ -168,7 +168,17 @@ class _SignupScreenState extends State<SignupScreen> {
                     );
                   }
                 },
+                child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      color: Colors.white,
+
+                    )),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(lightgreen),
+                ),
               ),
+
               SizedBox(height: 50),
               socialLoginButton(
                 imageUrl: "assets/images/google.png",
