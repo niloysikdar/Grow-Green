@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hack_project/constants/colors.dart';
+import 'package:hack_project/models/shopmodel.dart';
 import 'package:hack_project/widgets/shop_dashboard_banner.dart';
 import 'package:hack_project/widgets/star_rating.dart';
 
@@ -11,6 +13,12 @@ class ShopDashboard extends StatefulWidget {
 
 class _ShopDashboardState extends State<ShopDashboard> {
   bool isFavourite = false;
+  ShopModel shopModel;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +92,9 @@ class _ShopDashboardState extends State<ShopDashboard> {
                       children: [
                         customButton(text: "Pottery"),
                         SizedBox(width: 10),
-                        customButton(text: "Rajasthanisakas"),
+                        customButton(text: "Rajasthani"),
                         SizedBox(width: 10),
-                        customButton(text: "Pottery"),
+                        customButton(text: "Homemade"),
                       ],
                     ),
                   ],
