@@ -13,7 +13,8 @@
 We were inspired, in part, by a statistic published by Mint, an Indian financial newspaper, on the large percentage of small businesses that have negatively been impacted by COVID-19. We hope that our app can bring more customers to their storefronts. 
 
 ## WHAT IT DOES 📝
-When a user opens GrowGreen, they can find local, small businesses in their area with our integrated map. Tapping on the marker location for a store will pull up info on it, including but not limited to the store’s business hours, products offered, and contact info. If a user likes a particular business, they can favorite it, so that the next time they use GrowGreen, they can find that specific business’ info more quickly. 
+When a user opens GrowGreen, they can find local, small businesses in their area with our integrated map. Tapping on the marker location for a store will pull up info on it, including but not limited to the store’s business hours, products offered, and contact info. If a user likes a particular business, they can favorite it, so that the next time they use GrowGreen, they can find that specific business’ info more quickly.
+Our website : http://grow-green.vercel.app/
 
 ## TECH STACK USED ⚙
 *   Flutter (For building the App)
