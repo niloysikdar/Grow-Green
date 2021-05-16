@@ -131,7 +131,7 @@ class _MapState extends State<Map> {
     });
 
     if(index==1) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ShopDashboard(shopId: "o1x5oLiroLFG88bc66Yg")));
     }
   }
 
