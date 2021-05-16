@@ -1,4 +1,4 @@
-# hack_project
+# Grow Green
 
 A new Flutter project.
 
