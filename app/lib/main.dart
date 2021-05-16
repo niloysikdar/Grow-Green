@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.green,
       ),
-      home: ShopDashboard(),
+      home: ShopDashboard(shopId: "o1x5oLiroLFG88bc66Yg"),
     );
   }
 }

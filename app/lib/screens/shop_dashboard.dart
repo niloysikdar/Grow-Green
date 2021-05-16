@@ -7,6 +7,8 @@ import 'package:hack_project/widgets/shop_dashboard_banner.dart';
 import 'package:hack_project/widgets/star_rating.dart';
 
 class ShopDashboard extends StatefulWidget {
+  final String shopId;
+  ShopDashboard({@required this.shopId});
   @override
   _ShopDashboardState createState() => _ShopDashboardState();
 }
@@ -22,7 +24,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
         body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("shops")
-              .doc("o1x5oLiroLFG88bc66Yg")
+              .doc(widget.shopId)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
