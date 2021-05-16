@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack_project/constants/colors.dart';
+import 'package:hack_project/screens/signup.dart';
 import 'package:hack_project/widgets/inputfield.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
 import 'package:hack_project/widgets/social_login_button.dart';
@@ -80,6 +81,7 @@ class LoginScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       print("Join now pressed");
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),

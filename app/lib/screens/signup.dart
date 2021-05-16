@@ -3,8 +3,27 @@ import 'package:hack_project/constants/colors.dart';
 import 'package:hack_project/widgets/inputfield.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
 import 'package:hack_project/widgets/social_login_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:hack_project/authentication.dart';
+import 'dart:async';
+import 'package:hack_project/screens/map.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+
+  String _email="";
+  String _password="";
+
+  final AuthenticationHelper  _auth = AuthenticationHelper();
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,26 +44,130 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              CustomInput(
-                hintText: "Full Name",
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Full Name",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                onChanged: (value){
+                  setState(() {
+                    _password = value;
+
+                  });
+
+                },
+
               ),
               SizedBox(height: 20),
-              CustomInput(
-                hintText: "Email",
+              // CustomInput(
+              //   hintText: "Email",
+              // ),
+              TextFormField(
+                decoration: InputDecoration(
+                    hintText: "Email",
+                    filled: true,
+                    fillColor: inputbackground,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                 onChanged: (value){
+                   setState(() {
+                     _email = value;
+
+                   });
+
+                 },
+
               ),
               SizedBox(height: 20),
-              CustomInput(
-                hintText: "Enter Password",
-                obscureText: true,
+              // CustomInput(
+              //   hintText: "Enter Password",
+              //   obscureText: true,
+              // ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                onChanged: (value){
+                  setState(() {
+                    _password = value;
+
+                  });
+
+                },
+
               ),
               SizedBox(height: 20),
-              CustomInput(
-                hintText: "Confirm Password",
-                obscureText: true,
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Confirm Password",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+
+                onChanged: (value){
+                  setState(() {
+                    _password = value;
+
+                  });
+
+                },
+
               ),
               SizedBox(height: 30),
-              largeGreenButton(
-                text: "SIGN UP",
+              FloatingActionButton(
+
+                onPressed: () async {
+                  print("Email : $_email and pass $_password");
+                  dynamic result = await _auth.signUp(_email, _password);
+                  if (result == null) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Map()));
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text("$result"),
+                      action: SnackBarAction(
+                        label: 'Ok',
+
+                      ),
+                    );
+                  }
+                },
               ),
               SizedBox(height: 50),
               socialLoginButton(
