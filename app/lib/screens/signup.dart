@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hack_project/constants/colors.dart';
-import 'package:hack_project/widgets/inputfield.dart';
+import 'package:hack_project/screens/login_screen.dart';
 import 'package:hack_project/widgets/large_green_button.dart';
 import 'package:hack_project/widgets/social_login_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hack_project/authentication.dart';
-import 'dart:async';
 import 'package:hack_project/screens/map.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,14 +12,10 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String _email = "";
+  String _password = "";
 
-  String _email="";
-  String _password="";
-
-  final AuthenticationHelper  _auth = AuthenticationHelper();
-
-
-
+  final AuthenticationHelper _auth = AuthenticationHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +51,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     _password = value;
-
                   });
-
                 },
-
               ),
               SizedBox(height: 20),
               // CustomInput(
@@ -74,27 +63,23 @@ class _SignupScreenState extends State<SignupScreen> {
               // ),
               TextFormField(
                 decoration: InputDecoration(
-                    hintText: "Email",
-                    filled: true,
-                    fillColor: inputbackground,
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 20,
-                    ),
+                  hintText: "Email",
+                  filled: true,
+                  fillColor: inputbackground,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                 onChanged: (value){
-                   setState(() {
-                     _email = value;
-
-                   });
-
-                 },
-
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
               ),
               SizedBox(height: 20),
               // CustomInput(
@@ -115,15 +100,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     _password = value;
-
                   });
-
                 },
-
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -140,45 +121,35 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     _password = value;
-
                   });
-
                 },
-
               ),
               SizedBox(height: 30),
-              TextButton(
-
-                onPressed: () async {
+              GestureDetector(
+                onTap: () async {
                   print("Email : $_email and pass $_password");
                   dynamic result = await _auth.signUp(_email, _password);
                   if (result == null) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Map()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Map(),
+                      ),
+                    );
                   } else {
                     final snackBar = SnackBar(
                       content: Text("$result"),
                       action: SnackBarAction(
                         label: 'Ok',
-
                       ),
                     );
                   }
                 },
-                child: Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Colors.white,
-
-                    )),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(lightgreen),
-                ),
+                child: largeGreenButton(text: "Create an account"),
               ),
-
               SizedBox(height: 50),
               socialLoginButton(
                 imageUrl: "assets/images/google.png",
@@ -205,7 +176,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      print("Login here pressed");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),

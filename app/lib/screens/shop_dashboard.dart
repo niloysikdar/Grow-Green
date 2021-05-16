@@ -15,7 +15,7 @@ class ShopDashboard extends StatefulWidget {
 }
 
 class _ShopDashboardState extends State<ShopDashboard> {
-  bool isFavourite = false;
+  bool isFavourite = true;
 
   Future<void> launchUrl(String url) async {
     if (await canLaunch(url)) {
@@ -55,6 +55,8 @@ class _ShopDashboardState extends State<ShopDashboard> {
                 shopStars: map["shopStars"].toDouble(),
                 shopWebsite: map["shopWebsite"],
                 tags: map["tags"],
+                lat: map["lat"],
+                long: map["long"],
               );
               return bodyWidget(
                 size: size,

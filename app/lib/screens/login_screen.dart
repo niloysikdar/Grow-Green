@@ -13,11 +13,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _email="";
+  String _email = "";
 
-  String _password="";
+  String _password = "";
 
-  final AuthenticationHelper  _auth = AuthenticationHelper();
+  final AuthenticationHelper _auth = AuthenticationHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     _email = value;
                   });
-
                 },
-
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -77,15 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                 ),
-
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     _password = value;
-
                   });
-
                 },
-
               ),
               SizedBox(height: 10),
               InkWell(
@@ -104,32 +97,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 30),
-              TextButton(
-
-                  onPressed: () async {
-                    print("$_email, $_password");
-                    dynamic result = await _auth.signIn(_email, _password);
-                    if(result == null) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Map()));
-                    }else {
-                      final snackBar = SnackBar(
-                        content: Text("$result"),
-                        action: SnackBarAction(
-                          label: 'Ok',
-
-                        ),
-                      );
-                    }
-                  },
-                  child: Text(
-                      "Log In",
-                  style: TextStyle(
-                    color: Colors.white,
-
-                  )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(lightgreen),
-                  ),
+              GestureDetector(
+                onTap: () async {
+                  print("$_email, $_password");
+                  dynamic result = await _auth.signIn(_email, _password);
+                  if (result == null) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Map(),
+                      ),
+                    );
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text("$result"),
+                      action: SnackBarAction(
+                        label: 'Ok',
+                      ),
+                    );
+                  }
+                },
+                child: largeGreenButton(text: "Log In"),
               ),
               SizedBox(height: 50),
               socialLoginButton(
@@ -157,8 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      print("Join now pressed");
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignupScreen(),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),

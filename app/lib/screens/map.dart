@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hack_project/screens/login_screen.dart';
+import 'package:hack_project/screens/favpage.dart';
 import 'package:hack_project/widgets/star_rating.dart';
 import 'package:hack_project/screens/shop_dashboard.dart';
 
@@ -148,8 +148,13 @@ class _MapState extends State<Map> {
       _selectedIndex = index;
     });
 
-    if(index==1) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ShopDashboard(shopId: "o1x5oLiroLFG88bc66Yg")));
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FavShops(),
+        ),
+      );
     }
   }
 
@@ -193,7 +198,8 @@ class _MapState extends State<Map> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("App"),
+        title: Text("Local Shops near you"),
+        centerTitle: true,
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
