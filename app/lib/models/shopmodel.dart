@@ -8,6 +8,8 @@ class ShopModel {
   final double shopStars;
   final String shopWebsite;
   final List tags;
+  final String lat;
+  final String long;
 
   ShopModel({
     this.shopName,
@@ -19,6 +21,8 @@ class ShopModel {
     this.shopStars,
     this.shopWebsite,
     this.tags,
+    this.lat,
+    this.long,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +36,8 @@ class ShopModel {
       "shopStars": shopStars,
       "shopWebsite": shopWebsite,
       "tags": tags,
+      "lat": lat,
+      "long": long,
     };
   }
 }
